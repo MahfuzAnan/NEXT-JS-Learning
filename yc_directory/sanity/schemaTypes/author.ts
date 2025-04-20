@@ -1,11 +1,13 @@
 import { defineField, defineType } from "sanity";
-import { UserIcon } from "lucide-react";
+
+// Use a simple string for the icon instead of the lucide-react component
+// This avoids the ES Module/CommonJS conflict
 
 export const author = defineType({
   name: "author",
   title: "Author",
   type: "document",
-  icon: UserIcon,
+  icon: () => "👤", // Simple emoji icon instead of lucide component
   fields: [
     defineField({
       name: "id",
