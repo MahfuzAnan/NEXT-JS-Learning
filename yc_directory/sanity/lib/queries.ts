@@ -1,4 +1,8 @@
-import { defineQuery } from "next-sanity";
+// Replace direct import with a re-implementation to avoid module loading issues
+// import { defineQuery } from "next-sanity";
+
+// Simple implementation of defineQuery that just returns the GROQ string
+const defineQuery = (query: string) => query;
 
 export const STARTUPS_QUERY =
   defineQuery(`*[_type == "startup" && defined(slug.current) && !defined($search) || title match $search || category match $search || author->name match $search] | order(_createdAt desc) {

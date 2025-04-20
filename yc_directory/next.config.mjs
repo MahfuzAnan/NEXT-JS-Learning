@@ -21,9 +21,13 @@ const nextConfig = {
     ppr: "incremental",
   },
   devIndicators: {
-    appIsrStatus: true,
-    buildActivity: true,
-    buildActivityPosition: "bottom-right",
+    position: "bottom-right",
+  },
+  serverExternalPackages: ["next-sanity", "sanity", "@sanity/vision"],
+  webpack: (config) => {
+    // Fix for issues with mixed CommonJS and ES modules
+    config.experiments = { ...config.experiments, topLevelAwait: true };
+    return config;
   },
 };
 
