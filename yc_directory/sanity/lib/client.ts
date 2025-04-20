@@ -1,6 +1,6 @@
 // Import apiVersion, dataset, projectId synchronously since they're needed for configuration
 import { apiVersion, dataset, projectId } from "../env";
-import type { SanityClient } from "next-sanity";
+import type { SanityClient, ClientConfig } from "next-sanity";
 
 // Create client asynchronously
 let clientPromise: Promise<SanityClient> | null = null;
@@ -27,5 +27,14 @@ export const client = {
   fetch: async (...args: Parameters<SanityClient['fetch']>) => {
     const actualClient = await getClient();
     return actualClient.fetch(...args);
+  },
+  withConfig: (config: Partial<ClientConfig>) => {
+    return {
+      fetch: async (...args: Parameters<SanityClient['fetch']>) => {
+        const actualClient = await getClient();
+        const configuredClient = actualClient.withConfig(config);
+        return configuredClient.fetch(...args);
+      }
+    };
   }
 };
